@@ -1,0 +1,61 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-hybrid-padding">
+
+<!-- This is the Bus Ticket registration -->
+  <div data-bind="">
+<div class="a">
+<h2>Bus General Ticket Booking</h2>
+</div>
+<br><br>
+<b>Date:</b>
+<span data-bind="text:today()"/>
+
+<br><br><br>
+<b>Source:</b>
+<oj-select-one name="Source" id="source" value="{{sourceBus}}">
+  <oj-option value="Agra">Agra</oj-option>
+  <oj-option value="Jakasandra">Jakasandra</oj-option>
+  <oj-option value="Koramangala">Koramangala</oj-option>
+  <oj-option value="WaterTank">WaterTank</oj-option>
+</oj-select-one>
+  <br>  <br>  <br>
+<b>Destination:</b>
+<oj-select-one name="Destination" id="destination" value="{{destBus}}">
+  <oj-option value="Agra">Agra</oj-option>
+  <oj-option value="Jakasandra">Jakasandra</oj-option>
+  <oj-option value="Koramangala">Koramangala</oj-option>
+  <oj-option value="WaterTank">WaterTank</oj-option>
+</oj-select-one> <br>  <br><br>
+<oj-button type="button" data-bind="click:function(event){ACfares()}">AC</oj-button>
+<oj-button type="button" onclick="NonACfares()">non-AC</oj-button>
+<br><br>
+<table style="width:30%" id="myTable" style="display:none">
+<tbody id="myTableT" style="display:none">
+  <tr>
+    <th>Bus No</th>
+    <th>Fare</th> 
+    <th>Route</th>
+  </tr>
+  <tr>
+    <td>500</td>
+    <td id="myTd"> </td> 
+    <td>Agra,Jakasandra,Koramangala</td>
+  </tr>
+  <tr>
+    <td>500A</td>
+    <td id="myTd1"> </td> 
+    <td>Agra,Jakasandra,Koramangala</td>
+  </tr>
+  <tr>
+    <td>500AD</td>
+    <td id="myTd2"> </td> 
+    <td>Agra,Jakasandra,Koramangala</td>
+  </tr>
+  </tbody>
+</table> <br><br>
+</div>
+
+</div>

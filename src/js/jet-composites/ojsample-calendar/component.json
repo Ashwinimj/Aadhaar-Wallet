@@ -1,0 +1,1070 @@
+{
+    "name": "ojsample-calendar",
+    "displayName": "JET Calendar",
+    "description": "FullCalendar wrapper with Accessibility added. FullCalendar is already included in this CCA but 'moment' must be included in you project since FullCalendar's define will call it by name.",
+    "version": "1.0.1",
+    "jetVersion": "^4.0.0",
+    "license": "https://opensource.org/licenses/UPL",    
+    "properties": {
+        "allDaySlot": {
+            "description": "Should show all day event area. Default: true",
+            "type": "boolean"
+        },
+        "allDayText": {
+            "description": "The text titling the all-day slot at the top of the calendar. Default: 'all-day'",
+            "type": "string"
+        },
+        "weekends": {
+            "description": "Should show weekends. Default: true",
+            "type": "boolean"
+        },
+        "slotDuration": {
+            "description": "The frequency for displaying time slots. Default 00:30:00",
+            "type": "string"
+        },
+        "slotLabelFormat": {
+            "description": "The time-text that will be displayed on the vertical axis of the agenda views. Default: 'h(:mm)a'",
+            "type": "string"
+        },
+        "scrollTime": {
+            "description": "Determines how far down the scroll pane is initially scrolled down. Default: 06:00:00",
+            "type": "string"
+        },
+        "minTime": {
+            "description": "The starting time that will be displayed, even when the scrollbars have been scrolled all the way up. Default: 00:00:00",
+            "type": "string"
+        },
+        "maxTime": {
+            "description": "The end time (exclusively) that will be displayed, even when the scrollbars have been scrolled all the way down. Default: 24:00:00",
+            "type": "string"
+        },
+        "slotEventOverlap": {
+            "description": "If timed events in agenda view should visually overlap. Default: true",
+            "type": "boolean"
+        },
+        "listDayFormat": {
+            "description": "A date formatting string that affects the text on the left side of the day headings in list view. See also listDayFormatBool but use only one.",
+            "type": "string"
+        },
+        "listDayFormatBool": {
+            "description": "If false is specified, no text is displayed. See also listDayFormat but use only one.",
+            "type": "boolean"
+        },
+        "listDayAltFormat": {
+            "description": "A date formatting string that affects the text on the right side of the day headings in list view. See also listDayAltFormatBool but use only one.",
+            "type": "string"
+        },
+        "listDayAltFormatBool": {
+            "description": "If false is specified, no text is displayed. See also listDayAltFormat but use only one.",
+            "type": "boolean"
+        },
+        "noEventsMessage": {
+            "description": "The text that is displayed in the middle of list view, alerting the user that there are no events within the given range. Default: 'No events to display'",
+            "type": "string"
+        },
+        "firstDay": {
+            "description": "Which day to show first Sunday=0 Default: 0",
+            "type": "number"
+        },
+        "rtl": {
+            "description": "Display calandar right to left. Default: false",
+            "type": "boolean"
+        },
+        "businessHours": {
+            "description": "In the agenda views, emphasize certain business hours. Example (mon-fri 9AM to 5PM): [{dow:[1,2,3,4,5],start:'09:00', end:'17:00'}] Default: No business hours",
+            "type": "Array<object>",
+            "properties": {
+                "dow": {
+                    "description": "Day of Week. Array of numbers 0=Sunday, 1=Monday, etc.. Example: (mon-fri) [1,2,3,4,5]",
+                    "type": "Array<number>"
+                },
+                "start": {
+                    "description": "Moment parsable start time. Example: 09:00",
+                    "type": "string"
+                },
+                "end": {
+                    "description": "Moment parsable end time. Example: 17:00",
+                    "type": "string"
+                }
+            }
+        },
+        "timezone": {
+            "description": "Determines the timezone in which dates throughout the API are parsed and rendered. 'local', 'UTC', a timezone string ('America/Chicago') Defaults: no timezone",
+            "type": "string"
+        },
+        "now": {
+            "description": "Explicitly sets the 'today' date of the calendar. This is the day that is normally highlighted in yellow. See also nowFunc but only use one.",
+            "type": "string"
+        },
+        "nowFunc": {
+            "description": "Explicitly sets the 'today' date of the calendar. This is the day that is normally highlighted in yellow. See also now but only use one.",
+            "type": "function()"
+        },
+
+        "hiddenDays": {
+            "description": "Days to not display. Array of numbers 0-6 0=Sunday. [0, 6] would not show Sunday and Saturday. Default: []",
+            "type": "Array<number>"
+        },
+        "defaultView": {
+            "description": "Which view do we start with. Default: AccessibleMonthView",
+            "type": "string",
+            "value": "AccessibleMonthView",
+            "enumValues": [
+                "AccessibleMonthView",
+                "AccessibleListMonth",
+                "AccessibleWeekAgendaView",
+                "AccessibleListWeek",
+                "AccessibleDayAgendaView",
+                "AccessibleListDay",
+                "AccessibleListYear"
+            ]
+        },
+        "eventLimit": {
+            "description": "Limits the number of events displayed on a day. Default: no limit.",
+            "type": "number"
+        },
+        "eventLimitClick": {
+            "description": "Determines the action taken when the user clicks on a 'more' link created by the eventLimit option. Either popover or name of a view. Default: popover",
+            "type": "string",
+            "value": "popover",
+            "enumValues": [
+                "popover",
+                "AccessibleMonthView",
+                "AccessibleListMonth",
+                "AccessibleWeekAgendaView",
+                "AccessibleListWeek",
+                "AccessibleDayAgendaView",
+                "AccessibleListDay",
+                "AccessibleListYear"
+            ]
+        },
+        "showNonCurrentDates": {
+            "description": "In month view, whether dates in the previous or next month should be rendered at all. Default: true",
+            "type": "boolean"
+        },
+        "height": {
+            "description": "Calendar height in pixels. Default: not set, determined by aspectRatio. See also heightEnum, heightFunc but use only one of them.",
+            "type": "number"
+        },
+        "heightEnum": {
+            "description": "Calendar height in pixels. Default: not set, determined by aspectRatio. See also height, heightFunc but use only one of them.",
+            "type": "string",
+            "enumValues": [
+                "parent",
+                "auto"
+            ]
+        },
+        "heightFunc": {
+            "description": "Calendar height in pixels.  this function will be called every time a height update is requested. Default: not set, determined by aspectRatio. See also height, heightFunc but use only one of them.",
+            "type": "function()"
+        },
+        "contentHeight": {
+            "description": "Will make the calendar's content area a pixel height. Default: not set, determined by aspectRatio",
+            "type": "number"
+        },
+        "aspectRatio": {
+            "description": "Determines the width-to-height aspect ratio of the calendar. Default: 1.35",
+            "type": "number"
+        },
+        "handleWindowResize": {
+            "description": "Whether to automatically resize the calendar when the browser window resizes. Default: true",
+            "type": "boolean"
+        },
+        "windowResizeDelay": {
+            "description": "Time, in milliseconds, the calendar will wait to adjust its size after a window resize event occurs. Default: 100",
+            "type": "number"
+        },
+        "defaultDate": {
+            "description": "The initial date displayed when the calendar first loads. A Moment parsable date. Defauult: current date",
+            "type": "string"
+        },
+        "nowIndicator": {
+            "description": "Whether or not to display a marker indicating the current time. Default: false",
+            "type": "boolean"
+        },
+        "visibleRange": {
+            "description": "Sets the exact date range that is visible in a view. Example: {start: '2017-03-22', end: '2017-03-25'}",
+            "type": "object",
+            "properties": {
+                "start": {
+                    "description": "A Moment parsable date. Example: 2017-03-22",
+                    "type": "string"
+                },
+                "end": {
+                    "description": "A Moment parsable date. (Exclusive) Example: 2017-03-25",
+                    "type": "string"
+                }
+            }
+        },
+        "validRange": {
+            "description": "Limits which dates the user can navigate to and where events can go. Dates outside of the valid range will be grayed-out. The user will not be able to drag or resize events into these areas. Example: {start: '2017-03-22', end: '2017-03-25'}",
+            "type": "object",
+            "properties": {
+                "start": {
+                    "description": "A Moment parsable date. Example: 2017-03-22",
+                    "type": "string"
+                },
+                "end": {
+                    "description": "A Moment parsable date. (Exclusive) Example: 2017-03-25",
+                    "type": "string"
+                }
+            }
+        },
+        "dateIncrement": {
+            "description": "How far into the future/past the calendar navigates when prev/next is executed. Example: { days:1 }",
+            "type": "object",
+            "properties": {
+                "days": {
+                    "description": "Number of days",
+                    "type": "number"
+                },
+                "hours": {
+                    "description": "Number of hours",
+                    "type": "number"
+                },
+                "minutes": {
+                    "description": "Number of minutes",
+                    "type": "number"
+                }
+            }
+        },
+        "dateAlignment": {
+            "description": "Determines the first visible day for a Custom or Generic view.",
+            "type": "string"
+        },
+        "locale": {
+            "description": "Customize the language and localization options for the calendar. Default: en",
+            "type": "string"
+        },
+        "timeFormat": {
+            "description": "Determines the time-text that will be displayed on each event. Example: h:mm or h(:mm)t or H(:mm) Default: 'h:mm' for agenda views and h(:mm)t for all other",
+            "type": "string"
+        },
+        "columnFormat": {
+            "description": "Determines the text that will be displayed on the calendar's column headings.",
+            "type": "string"
+        },
+        "monthNames": {
+            "description": "Full names of months. These will automatically change based on locale if not set. Default: will change depending on current locale",
+            "type": "Array<string>"
+        },
+        "monthNamesShort": {
+            "description": "Full names of months. These will automatically change based on locale if not set. Default: will change depending on current locale",
+            "type": "Array<string>"
+        },
+        "dayNames": {
+            "description": "Full names of days-of-week starting with Sunday. These will automatically change based on locale if not set. Default: will change depending on current locale",
+            "type": "Array<string>"
+        },
+        "dayNamesShort": {
+            "description": "Short names of days-of-week starting with Sun. These will automatically change based on locale if not set. Default: will change depending on current locale",
+            "type": "Array<string>"
+        },
+        "weekNumberTitle": {
+            "description": "The heading text for week numbers.",
+            "type": "string"
+        },
+        "displayEventTime": {
+            "description": "Display the text for an event's time. Default that is computed is based off of the current view",
+            "type": "boolean"
+        },
+        "displayEventEnd": {
+            "description": "Whether or not to display an event's end time text when it is rendered on the calendar.",
+            "type": "boolean"
+        },
+        "eventLimitText": {
+            "description": "Determines the text of the link created by eventLimit setting. Default: more",
+            "type": "string"
+        },
+        "dayPopoverFormat": {
+            "description": "The date format of title of the popover created by the eventLimitClick option. Default value is 'dddd, MMMM D' for English and 'LL' for other languages.",
+            "type": "string"
+        },
+        "navLinks": {
+            "description": "Determines if day names and week names are clickable. The destination views are defined using navLinkDayClick and navLinkWeekClick. Default: false",
+            "type": "boolean"
+        },
+        "navLinkDayClick": {
+            "description": "Determines what happens upon a day heading nav-link click. Default: AccessibleDayAgendaView",
+            "type": "string",
+            "value": "AccessibleDayAgendaView",
+            "enumValues": [
+                "AccessibleMonthView",
+                "AccessibleListMonth",
+                "AccessibleWeekAgendaView",
+                "AccessibleListWeek",
+                "AccessibleDayAgendaView",
+                "AccessibleListDay",
+                "AccessibleListYear"
+            ]
+        },
+        "navLinkWeekClick": {
+            "description": "Determines what happens upon a day heading nav-link click. Default: AccessibleWeekAgendaView",
+            "type": "string",
+            "value": "AccessibleWeekAgendaView",
+            "enumValues": [
+                "AccessibleMonthView",
+                "AccessibleListMonth",
+                "AccessibleWeekAgendaView",
+                "AccessibleListWeek",
+                "AccessibleDayAgendaView",
+                "AccessibleListDay",
+                "AccessibleListYear"
+            ]
+        },
+
+        "selectable": {
+            "description": "Allows a user to highlight multiple days or timeslots by clicking and dragging. Default: false",
+            "type": "boolean"
+        },
+        "selectHelper": {
+            "description": "Whether to draw a placeholder event while the user is dragging. Default: false",
+            "type": "boolean"
+        },
+        "unselectAuto": {
+            "description": "Whether clicking elsewhere on the page will cause the current selection to be cleared. Default: true",
+            "type": "boolean"
+        },
+        "unselectCancel": {
+            "description": "A way to specify elements that will ignore the unselectAuto option. A jQuery selector Default: ''",
+            "type": "string"
+        },
+        "selectOverlap": {
+            "description": "Determines whether the user is allowed to select periods of time that are occupied by events. Default: true",
+            "type": "boolean"
+        },
+        "selectConstraint": {
+            "description": "Limits user selection to certain windows of time. See also selectConstraintString but use only one.",
+            "type": "object",
+            "properties": {
+                "dow": {
+                    "description": "Day of Week. Array of numbers 0=Sunday, 1=Monday, etc.. Example: (mon-fri) [1,2,3,4,5]",
+                    "type": "Array<number>"
+                },
+                "start": {
+                    "description": "Moment parsable start time. Example: 09:00",
+                    "type": "string"
+                },
+                "end": {
+                    "description": "Moment parsable end time. Example: 17:00",
+                    "type": "string"
+                }
+            }
+        },
+        "selectConstraintString": {
+            "description": "Limits user selection to certain windows of time. Either 'businessHours' or an event ID. See also selectConstraint but use only one.",
+            "type": "string"
+        },
+        "selectAllow": {
+            "description": "Exact programmatic control over where the user can select.",
+            "type": "function(selectInfo)"
+        },
+
+        "selectMinDistance": {
+            "description": "The minimum distance the user's mouse must travel after a mousedown, before a selection is allowed. Default: 0",
+            "type": "number"
+        },
+        "selectLongPressDelay": {
+            "description": "For touch devices, the amount of time the user most hold down before a date becomes selectable. Default: 1000 (1 second)",
+            "type": "number"
+        },
+        "eventColor": {
+            "description": "The color of all events on the calendar. Can also be overridded on a per-source or per-event basis.",
+            "type": "string"
+        },
+        "eventBackgroundColor": {
+            "description": "The background color for all events on the calendar. Can be overridden on a per-source or per-event basis.",
+            "type": "string"
+        },
+        "eventBorderColor": {
+            "description": "Sets the border color for all events on the calendar. Can be overridden on a per-source or per-event basis.",
+            "type": "string"
+        },
+        "eventTextColor": {
+            "description": "The text color for all events on the calendar. Can be overridden on a per-source or per-event basis.",
+            "type": "string"
+        },
+        "nextDayThreshold": {
+            "description": "When an event's end time spans into another day, the minimum time it must be in order for it to render as if it were on that day. Default: 09:00:00",
+            "type": "string"
+        },
+        "eventOrder": {
+            "description": "The amount of milliseconds to wait after an operation, before rendering events.. Default: not set",
+            "type": "string"
+        },
+        "eventRenderWait": {
+            "description": "Determines the vertical ordering events that have the same dates / times. Default: title",
+            "type": "number"
+        },
+        "editable": {
+            "description": "Determines whether the events on the calendar can be modified. Default: false",
+            "type": "boolean"
+        },
+        "eventStartEditable": {
+            "description": "Allow events' start times to be editable through dragging. Default: true",
+            "type": "boolean"
+        },
+        "eventDurationEditable": {
+            "description": "Allow events' durations to be editable through resizing. Default: true",
+            "type": "boolean"
+        },
+        "dragRevertDuration": {
+            "description": "Time in millisecondsit takes for an event to revert to its original position after an unsuccessful drag. Default: 500 (1/2 second)",
+            "type": "number"
+        },
+        "dragOpacity": {
+            "description": "The opacity of an event while it is being dragged. Default: 0.75",
+            "type": "number"
+        },
+        "dragScroll": {
+            "description": "Whether to automatically move scroll containers during event drag-and-drop or while selecting. Default: true",
+            "type": "boolean"
+        },
+        "eventOverlap": {
+            "description": "Determines if events on the calendar, when dragged and resized, are allowed to overlap each other. Default: true",
+            "type": "boolean"
+        },
+        "eventConstraint": {
+            "description": "Limits event dragging and resizing to certain windows of time. See also eventConstraintString but use only one.",
+            "type": "object",
+            "properties": {
+                "dow": {
+                    "description": "Day of Week. Array of numbers 0=Sunday, 1=Monday, etc.. Example: (mon-fri) [1,2,3,4,5]",
+                    "type": "Array<number>"
+                },
+                "start": {
+                    "description": "Moment parsable start time. Example: 09:00",
+                    "type": "string"
+                },
+                "end": {
+                    "description": "Moment parsable end time. Example: 17:00",
+                    "type": "string"
+                }
+            }
+        },
+        "eventConstraintString": {
+            "description": "Limits event dragging and resizing to certain windows of time. See also eventConstraint but use only one.",
+            "type": "string"
+        },
+        "eventAllow": {
+            "description": "Exact programmatic control over where an event can be dropped.",
+            "type": "function(dropInfo, draggedEvent)"
+        },
+        "longPressDelay": {
+            "description": "For touch devices, the amount of time the user most hold down before an event becomes draggable or a date becomes selectable. Default: 1000 (1 second)",
+            "type": "number"
+        },
+        "eventLongPressDelay": {
+            "description": "For touch devices, the amount of time the user most hold down before an event becomes draggable. Default: 1000 (1 second)",
+            "type": "number"
+        },
+        "fixedWeekCount": {
+            "description": "Determines the number of weeks displayed in a month view. Default: true",
+            "type": "boolean"
+        },
+        "weekNumbers": {
+            "description": "Determines if week numbers should be displayed on the calendar. Default: false",
+            "type": "boolean"
+        },
+        "weekNumbersWithinDays": {
+            "description": "Determines the styling for week numbers in month view and the basic views. Default: false",
+            "type": "boolean"
+        },
+        "weekNumberCalculation": {
+            "description": "The method for calculating week numbers that are displayed with the weekNumbers setting. See also weekNumberCalculationFunc for the version that takes a function and only set one of them. Default: local",
+            "type": "string",
+            "enumValues": [
+                "local",
+                "ISO"
+            ]
+        },
+        "weekNumberCalculationFunc": {
+            "description": "The method for calculating week numbers that are displayed with the weekNumbers setting. See also weekNumberCalculation and only set one of them.",
+            "type": "function()"
+        },
+
+        "eventSources": {
+            "description": "An array of event sources.",
+            "type": "Array<object>",
+            "properties": {
+                "id": {
+                    "description": "Unique identifier of this source.",
+                    "type": "string"
+                },
+                "color": {
+                    "description": "Every event's background and border color in this source. Can be any CSS color format.",
+                    "type": "string"
+                },
+                "eventType": {
+                    "description": "For accessibility. Text describing color.",
+                    "type": "string"
+                },
+                "backgroundColor": {
+                    "description": "Every event's background color in this source. Can be any CSS color format.",
+                    "type": "string"
+                },
+                "borderColor": {
+                    "description": "Every event's border color in this source. Can be any CSS color format.",
+                    "type": "string"
+                },
+                "textColor": {
+                    "description": "Every event's text color in this source. Can be any CSS color format.",
+                    "type": "string"
+                },
+                "className": {
+                    "description": "A CSS class that will be added to every event in this source.",
+                    "type": "string"
+                },
+                "editable": {
+                    "description": "Can events be edited in this source.",
+                    "type": "boolean"
+                },
+                "startEditable": {
+                    "description": "Can events start times be edited in this source.",
+                    "type": "boolean"
+                },
+                "durationEditable": {
+                    "description": "Can events durations be edited through resizing in this source.",
+                    "type": "boolean"
+                },
+                "rendering": {
+                    "description": "Allows alternate rendering of the event in this source.",
+                    "type": "string",
+                    "enumValues": [
+                        "background",
+                        "inverse-background"
+                    ]
+                },
+                "overlap": {
+                    "description": "If false, prevents this event from being dragged/resized over other events. Also prevents other events from being dragged/resized over this event in this source.",
+                    "type": "boolean"
+                },
+                "constraint": {
+                    "description": "Limits event dragging and resizing to certain windows of time in this source.",
+                    "type": "object",
+                    "properties": {
+                        "dow": {
+                            "description": "Day of Week. Array of numbers 0=Sunday, 1=Monday, etc.. Example: (mon-fri) [1,2,3,4,5]",
+                            "type": "Array<number>"
+                        },
+                        "start": {
+                            "description": "Moment parsable start time. Example: 09:00",
+                            "type": "string"
+                        },
+                        "end": {
+                            "description": "Moment parsable end time. Example: 17:00",
+                            "type": "string"
+                        }
+                    }
+                },
+                "allDayDefault": {
+                    "description": "Default value for each event's AllDay property in this source.",
+                    "type": "boolean"
+                },
+                "startParam": {
+                    "description": "A parameter of this name will be sent to each JSON event feed. It describes the start of the interval being fetched. Default 'start'",
+                    "type": "string"
+                },
+                "endParam": {
+                    "description": "A parameter of this name will be sent to each JSON event feed. It describes the exclusive end of the interval being fetched. Default 'end'",
+                    "type": "string"
+                },
+                "timezoneParam": {
+                    "description": "A parameter of this name will be sent to each JSON event feed. It describes the timezone of the startParam and endParam values, as well as the desired timezone of the returned events. Default 'timezone'",
+                    "type": "string"
+                },
+                "lazyFetching": {
+                    "description": "Determines when event fetching should occur. Default: true",
+                    "type": "boolean"
+                },
+                "defaultTimedEventDuration": {
+                    "description": "A fallback duration for timed Event Objects without a specified end value. Default: '02:00:00'",
+                    "type": "string"
+                },
+                "defaultAllDayEventDuration": {
+                    "description": "A fallback duration for all-day Event Objects without a specified end value. Default: '24:00:00'",
+                    "type": "string"
+                },
+                "forceEventDuration": {
+                    "description": "A flag to force calculation of an event's end if it is unspecified. Default: false",
+                    "type": "boolean"
+                },
+                "events": {
+                    "description": "This source's array of events to render.",
+                    "type": "Array<object>",
+                    "properties": {
+                        "id": {
+                            "description": "Unique identifier of this event.",
+                            "type": "string"
+                        },
+                        "title": {
+                            "description": "Text on event's element. (Required)",
+                            "type": "string"
+                        },
+                        "allDay": {
+                            "description": "Is this an all day event.",
+                            "type": "boolean"
+                        },
+                        "start": {
+                            "description": "A Moment parsable Date/time an en event starts. (Required)",
+                            "type": "string"
+                        },
+                        "end": {
+                            "description": "A Moment parsable Date/time an en event ends.",
+                            "type": "string"
+                        },
+                        "url": {
+                            "description": "A URL that will be visited when this event is clicked by the user.",
+                            "type": "string"
+                        },
+                        "className": {
+                            "description": "A CSS class that will be added to this event.",
+                            "type": "string"
+                        },
+                        "editable": {
+                            "description": "Can this event be edited.",
+                            "type": "boolean"
+                        },
+                        "startEditable": {
+                            "description": "Can this event's start time be edited.",
+                            "type": "boolean"
+                        },
+                        "durationEditable": {
+                            "description": "Can this event's durations be edited through resizing.",
+                            "type": "boolean"
+                        },
+                        "rendering": {
+                            "description": "Allows alternate rendering of this event.",
+                            "type": "string",
+                            "enumValues": [
+                                "background",
+                                "inverse-background"
+                            ]
+                        },
+                        "overlap": {
+                            "description": "If false, prevents this event from being dragged/resized over other events. Also prevents other events from being dragged/resized over this event.",
+                            "type": "boolean"
+                        },
+                        "constraint": {
+                            "description": "Limits event dragging and resizing to certain windows of time.",
+                            "type": "object",
+                            "properties": {
+                                "dow": {
+                                    "description": "Day of Week. Array of numbers 0=Sunday, 1=Monday, etc.. Example: (mon-fri) [1,2,3,4,5]",
+                                    "type": "Array<number>"
+                                },
+                                "start": {
+                                    "description": "Moment parsable start time. Example: 09:00",
+                                    "type": "string"
+                                },
+                                "end": {
+                                    "description": "Moment parsable end time. Example: 17:00",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "color": {
+                            "description": "Evvent's background and border color. Can be any CSS color format.",
+                            "type": "string"
+                        },
+                        "backgroundColor": {
+                            "description": "Event's background color. Can be any CSS color format.",
+                            "type": "string"
+                        },
+                        "borderColor": {
+                            "description": "Event's border color. Can be any CSS color format.",
+                            "type": "string"
+                        },
+                        "textColor": {
+                            "description": "Event's text color. Can be any CSS color format.",
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "viewRender": {
+            "description": "Called when a view is rendered.",
+            "type": "function(view, element)"
+        },
+        "viewDestroy": {
+            "description": "Triggered when a rendered date-range needs to be torn down.",
+            "type": "function(view, element)"
+        },
+        "dayRender": {
+            "description": "A hook for modifying a day cell.",
+            "type": "function(date, cell)"
+        },
+        "dayClick": {
+            "description": "Triggered when the user clicks on a day.",
+            "type": "function(date, jsEvent, view)"
+        },
+        "eventClick": {
+            "description": "Triggered when the user clicks an event.",
+            "type": "function(event, jsEvent, vie)"
+        },
+        "eventMouseover": {
+            "description": "Triggered when the user mouses over an event.",
+            "type": "function(event, jsEvent, view)"
+        },
+        "eventMouseout": {
+            "description": "Triggered when the user mouses out of an event.",
+            "type": "function(event, jsEvent, view)"
+        },
+        "select": {
+            "description": "Triggered after a selection is made.",
+            "type": "function(start, end, jsEvent, view)"
+        },
+        "unselect": {
+            "description": "Triggered when the current selection is cleared.",
+            "type": "function(view, jsEvent)"
+        },
+        "eventDataTransform": {
+            "description": "This hook allows you to receive arbitrary event data from a JSON feed or any other Event Source and transform it into the type of data FullCalendar accepts",
+            "type": "function(eventData)"
+        },
+        "loading": {
+            "description": "Triggered when event fetching starts/stops.",
+            "type": "function(isLoading, view)"
+        },
+        "eventAfterRender": {
+            "description": "Triggered after an event has been placed on the calendar in its final position.",
+            "type": "function(event, element, view)"
+        },
+        "eventAfterAllRender": {
+            "description": "Triggered after all events have finished rendering.",
+            "type": "function(view)"
+        },
+        "eventDestroy": {
+            "description": "Triggered before an event's element is removed from the DOM.",
+            "type": "function(event, element, view)"
+        },
+        "eventDragStart": {
+            "description": "Triggered when event dragging begins.",
+            "type": "function(event, jsEvent, ui, view)"
+        },
+        "eventDragStop": {
+            "description": "Triggered when event dragging stops.",
+            "type": "function(event, jsEvent, ui, view)"
+        },
+        "eventDrop": {
+            "description": "Triggered when dragging stops and the event has moved to a different day/time.",
+            "type": "function(event, delta, revertFunc, jsEvent, ui, view)"
+        },
+        "eventResizeStart": {
+            "description": "Triggered when event resizing begins.",
+            "type": "function(event, jsEvent, ui, view)"
+        },
+        "eventResizeStop": {
+            "description": "Triggered when event resizing stops.",
+            "type": "function(event, jsEvent, ui, view)"
+        },
+        "eventResize": {
+            "description": "Triggered when resizing stops and the event has changed in duration.",
+            "type": "function(event, delta, revertFunc, jsEvent, ui, view)"
+        },
+        "drop": {
+            "description": "Triggered when a valid jQuery UI draggable has been dropped onto the calendar.",
+            "type": "function(date, jsEvent, ui, resourceId)"
+        },
+        "droppable": {
+            "description": "Determines if jQuery UI draggables can be dropped onto the calendar.",
+            "type": "boolean"
+        },
+        "dropAccept": {
+            "description": "Provides a way to filter which elements can be dropped onto the calendar. A string jQuery selector. See also dropAcceptFunc but use only one.",
+            "type": "string"
+        },
+        "dropAcceptFunc": {
+            "description": "Provides a way to filter which elements can be dropped onto the calendar. A string jQuery selector. See also dropAcceptFunc but use only one.",
+            "type": "function(item)"
+        },
+        "eventReceive": {
+            "description": "Triggered when an external element, containing event data, is dropped on the calendar.",
+            "type": "function(event)"
+        }
+    },
+    "methods": {
+        "changeView": {
+            "description": "Switches to a different view.",
+            "params": [
+                {
+                    "description": "Available view to switch to",
+                    "name": "viewName",
+                    "type": "string",
+                    "enumValues": [
+                        "AccessibleMonthView",
+                        "AccessibleListMonth",
+                        "AccessibleWeekAgendaView",
+                        "AccessibleListWeek",
+                        "AccessibleDayAgendaView",
+                        "AccessibleListDay",
+                        "AccessibleListYear"
+                    ]
+                },
+                {
+                    "description": "Optional date in Moment parsable format. Example '2017-10-11'",
+                    "name": "date",
+                    "type": "string"
+                }
+            ]
+        },
+        "render": {
+            "description": "Immediately forces the calendar to render and/or readjusts its size."
+        },
+        "moment": {
+            "description": "Return a FullCalendar implementation of moment.",
+            "return": "object"
+        },
+        "formatRange": {
+            "description": "Formats a date range by intelligently inserting a dash between the two dates.",
+            "params": [
+                {
+                    "description": "Moment object.",
+                    "name": "moment1",
+                    "type": "object"
+                },
+                {
+                    "description": "Moment object.",
+                    "name": "moment2",
+                    "type": "object"
+                },
+                {
+                    "description": "Format string. Written as if for a single date.",
+                    "name": "formatString",
+                    "type": "string"
+                },
+                {
+                    "description": "Seperator (optional)",
+                    "name": "separator",
+                    "type": "string"
+                },
+                {
+                    "description": "Is Right to left (optional)",
+                    "name": "isRTL",
+                    "type": "boolean"
+                }
+            ],
+            "return": "string"
+        },
+        "getCurrentView": {
+            "description": "Returns the View Object for the current view.",
+            "return": "object"
+        },
+        "prev": {
+            "description": "Moves the calendar one step back (either by a month, week, or day)."
+        },
+        "next": {
+            "description": "Moves the calendar one step forward (either by a month, week, or day)."
+        },
+        "prevYear": {
+            "description": "Moves the calendar back one year."
+        },
+        "nextYear": {
+            "description": "Moves the calendar forward one year."
+        },
+        "today": {
+            "description": "Moves the calendar to the current date."
+        },
+        "gotoDate": {
+            "description": "Moves the calendar to an arbitrary date.",
+            "params": [
+                {
+                    "description": "Moment parsable date.",
+                    "name": "date",
+                    "type": "string"
+                }
+            ]
+        },
+        "incrementDate": {
+            "description": "Moves the calendar forward/backward an arbitrary amount of time.",
+            "params": [
+                {
+                    "description": "A Duration object. See dateIncrement property.",
+                    "name": "duration",
+                    "type": "object"
+                }
+            ]
+        },
+        "getDate": {
+            "description": "Returns a Moment for the current date of the calendar.",
+            "return": "object"
+        },
+        "selectPeriod": {
+            "description": "A method for programmatically selecting a period of time.",
+            "params": [
+                {
+                    "description": "A Moment object or anything Moment constructor accepts",
+                    "name": "start",
+                    "type": "object"
+                },
+                {
+                    "description": "(Optional) A Moment object or anything Moment constructor accepts",
+                    "name": "end",
+                    "type": "object"
+                }
+            ]
+        },
+        "unselectPeriod": {
+            "description": "A method for programmatically clearing the current selection."
+        },
+        "updateEvent": {
+            "description": "Reports changes to an event and renders them on the calendar.",
+            "params": [
+                {
+                    "description": "Must be the original Event Object for an event, not merely a reconstructed object. The original Event Object can obtained by callbacks such as eventClick, or by the clientEvents method.",
+                    "name": "event",
+                    "type": "object"
+                }
+            ]
+        },
+        "updateEvents": {
+            "description": "Reports changes to multiple events and renders them in batch.",
+            "params": [
+                {
+                    "description": "Similar to updateEvent but an array of events as its main argument, to update multiple events at the same time. This reduces the number of event rerenders that must happen, for performance reasons.",
+                    "name": "events",
+                    "type": "array<object>"
+                }
+            ]
+        },
+        "clientEvents": {
+            "description": "Retrieves events that FullCalendar has in memory.",
+            "params": [
+                {
+                    "description": "(Optional) Id or filter function. If idOrFilter is omitted, all events will be returned. If idOrFilter is an ID, all events with the same ID will be returned. idOrFilter may also be a filter function that accepts one Event Object argument and returns true if it should be included in the result set.",
+                    "name": "idOrFilter",
+                    "type": "object"
+                }
+            ],
+            "return": "array<object>"
+        },
+        "removeEvents": {
+            "description": "Removes events from the calendar.",
+            "params": [
+                {
+                    "description": "(Optional) Id or filter function. If idOrFilter is omitted, all events will be returned. If idOrFilter is an ID, all events with the same ID will be returned. idOrFilter may also be a filter function that accepts one Event Object argument and returns true if it should be included in the result set.",
+                    "name": "idOrFilter",
+                    "type": "object"
+                }
+            ]
+        },
+        "refetchEvents": {
+            "description": "Refetches events from all sources and rerenders them on the screen."
+        },
+        "refetchEventSources": {
+            "description": "Refetches one or more specific event sources.",
+            "params": [
+                {
+                    "description": "The sources parameter can be a single identifier item, or an array of identifier items. An identifier item can be either an event source's id/Array/URL/Function or the full Event Source Object.",
+                    "name": "sources",
+                    "type": "object"
+                }
+            ]
+        },
+        "addEventSource": {
+            "description": "Dynamically adds an event source.",
+            "params": [
+                {
+                    "description": "Source may be an Array or Function. Events will be immediately fetched from this source and placed on the calendar.",
+                    "name": "source",
+                    "type": "object"
+                }
+            ]
+        },
+        "removeEventSource": {
+            "description": "Dynamically removes an event source.",
+            "params": [
+                {
+                    "description": "The source parameter is rather flexible. You can provide an event source's id/Array/Function or you can specify the full Event Source Object.",
+                    "name": "source",
+                    "type": "object"
+                }
+            ]
+        },
+        "removeEventSources": {
+            "description": "Dynamically removes all event sources, or multiple specific event sources.",
+            "params": [
+                {
+                    "description": "(Optional) an array of identifier items, which can be either an event source's id/Array/Function or the full Event Source Object.",
+                    "name": "sourceArray",
+                    "type": "array<object>"
+                }
+            ]
+        },
+        "getEventSources": {
+            "description": "Retrieves all Event Source Objects",
+            "return": "array<object>"
+        },
+        "getEventSourceById": {
+            "description": "Retrieves a specific Event Source Object.",
+            "params": [
+                {
+                    "description": "Event Source ID",
+                    "name": "id",
+                    "type": "string"
+                }
+            ],
+            "return": "object"
+        },
+        "renderEvent": {
+            "description": "Renders a new event on the calendar.",
+            "params": [
+                {
+                    "description": "Must be an Event Object with a title and start at the very least.",
+                    "name": "event",
+                    "type": "object"
+                },
+                {
+                    "description": "(Optional) Normally, the event will disappear once the calendar refetches its event sources (example: when prev/next is clicked). However, specifying stick as true will cause the event to be permanently fixed to the calendar.",
+                    "name": "stick",
+                    "type": "boolean"
+                }
+            ]
+        },
+        "renderEvents": {
+            "description": "Renders a multiple new event on the calendar in batch.",
+            "params": [
+                {
+                    "description": "Must be an array of Event Objects with a title and start at the very least.",
+                    "name": "events",
+                    "type": "array<object>"
+                },
+                {
+                    "description": "(Optional) Normally, the event will disappear once the calendar refetches its event sources (example: when prev/next is clicked). However, specifying stick as true will cause the event to be permanently fixed to the calendar.",
+                    "name": "stick",
+                    "type": "boolean"
+                }
+            ]
+        },
+        "rerenderEvents": {
+            "description": "Rerenders all events on the calendar."
+        }
+    },
+    "extension": {
+        "catalog": {
+            "category": "Data Visualization",
+            "status" : "Pre-production",
+            "tags": [
+                "Accessible: High Contrast",
+                "Accessible: Keyboard",
+                "Accessible: Screen Reader",
+                "Device Support: Keyboard",
+                "Device Support: Touch",
+                "Form Factor: Desktop",
+                "Form Factor: Phone",
+                "Form Factor: Tablet",
+                "Internationalized: Bi-Directional",
+                "Internationalized: Translations",
+                "Other: No Dependencies"
+            ],
+            "coverImage": "extension/images/coverimage.png",
+            "screenshots": {
+                "0": "extension/images/cal1.png",
+                "1": "extension/images/cal2.png",
+                "2": "extension/images/cal3.png",
+                "3": "extension/images/cal4.png"
+            }
+        }
+    }
+}

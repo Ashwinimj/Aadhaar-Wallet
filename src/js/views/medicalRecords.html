@@ -1,0 +1,199 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+ <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<div class="oj-hybrid-padding">
+  <!--<oj-ibsample-chat-widget
+    channel="[[channel]]"
+    websocket-connection-url="[[websocketConnectionUrl]]"
+    user-id="[[userId]]"
+    id="chat-widget">
+</oj-ibsample-chat-widget>-->
+
+<div data-bind="style:{display:showPayment()=='history'?'block':'none'}">
+  <table style="width:100%;" border="1">
+  <tr>
+    <th>Date</th>
+    <th>Diagnosis</th> 
+    <th>Doctor</th>
+	<th>More Details </th>
+  </tr>
+  <tr>
+    <td>05-05-2018</td>
+    <td>Headache</td> 
+    <td>Dr.Srikanth Reddy</td>
+	<td><a href="">More Details</a></td>
+  </tr>
+  <tr>
+    <td>25-02-2018</td>
+    <td>Fever</td> 
+    <td>Dr.Srikanth Reddy</td>
+	<td><a href="">More Details</a></td>
+  </tr>
+  <tr>
+  <td>15-01-2018</td>
+    <td>Eye irriation</td> 
+    <td>Dr.Swetha</td>
+	<td><a href="">More Details</a></td>
+	</tr>
+</table><br/>
+<oj-button on-click="[[showConsultant]]" style="float: right">Consult Doctor</oj-button>
+
+</div>
+
+
+
+<div data-bind="style:{display:showPayment()=='consultDoctor' && showbot()=='none' && showInbox()=='none'?'block':'none'}">
+<oj-button on-click="[[showHistory]]" style="float: right">Medical History</oj-button>
+  <div class="a" align="center">
+    <h2><b>Consult Doctor</b></h2>
+  </div>
+
+
+  <b>Looking For Specialist :</b>
+  <oj-select-one id="sel1" value="{{Specialization}}" on-value-changed="[[getDoctors]]">
+    <!--ko foreach:doctor_info-->
+    <oj-option value="[[$data.Specialization[0]]]"><span data-bind="text:$data.Specialization[0]" /></oj-option>
+    <!--/ko-->
+  </oj-select-one>
+  <br> <br> <br> 
+  <b>List Of the<span data-bind="text:' ' + Specialization()" /></b>
+  <div class="oj-flex">
+    <div class="oj-flex-item">
+      <oj-select-one id="docList" options="[[specialistList]]" value="{{specializedDoctor}}" on-value-changed="[[getClinic]]"></oj-select-one>
+      <br/>
+    </div>
+
+  <div class="oj-flex-item" id="Doctor_label">
+    <b>Clinic List : </b>
+    <!--ko foreach: clinicList()-->
+      <span data-bind="text:$data +' , '"/>
+    <!--/ko-->
+  </div>
+  </div>
+  <br><br> 
+  <b>Select the Communication Type : </b>
+      <oj-select-one name="Communication_type" value="{{communicationType}}" on-value-changed="[[modeOfCommunicationType]]">
+      <oj-option value="Chat">Chat</oj-option>
+      <oj-option value="Inbox">Inbox</oj-option>
+      <oj-option value="Skype">Skype</oj-option>
+      <oj-option value="F2F">F2F</oj-option>
+</oj-select-one> <br> <br>
+
+<span data-bind="text:'The initial amount for consulting the doctor is Rs.'+ doctorCharge()"></span>
+<br/>
+<!--Payment Button -->
+<div class='b' id="payment" data-bind="style:{display : proceedAndPay() == 'proceedAndPay'?'block':'none'}">
+  <oj-button id="submit_button" on-click="{{doPayment}}"> Pay And Proceed </oj-button>
+</div>
+<div class='b' id="payment" data-bind="style:{display : proceedAndPay() == 'proceed'?'block':'none'}">
+  <oj-button id="submit_button" on-click="{{proceed}}"> Proceed </oj-button>
+</div>
+<!--skype-->
+<div style="border: 1px solid #ccc" data-bind="style:{display:showSkype()}">
+<a href="skype:uzmamomin18@gmail.com?call">skype</a>
+</div>
+
+</div>
+
+<!--Payment Page-->
+
+<!-- Include the above in your HEAD tag -->
+
+<div class="container" data-bind="style:{display:showPayment()=='showPayment'?'block':'none'}">
+    <div class="row">
+        <div class="col-xs-12 col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Payment Details
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                    <div class="form-group">
+                        <label for="cardNumber">
+                            Virtual Payment Address(VPA)</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="cardNumber" placeholder="Virtual Payment Address"
+                                required autofocus />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#"><span class="badge pull-right"><span data-bind="text:'Rs.'+doctorCharge()"/></span> Final Payment</a>
+                </li>
+            </ul>
+            <br/>
+            <a href="#" data-bind="click:function(event){paymentSuccessful()}" class="btn btn-success btn-lg btn-block" role="button">Pay</a>
+        </div>
+    </div>
+</div>
+
+<!--Payment ends-->
+<!--payment successful-->
+<div class="success-page" data-bind="style:{display:showPayment()=='paymentSuccess'?'block':'none'}">
+   <!--<img  src="http://share.ashiknesin.com/green-checkmark.png" class="center" alt="" />-->
+  <h2>Payment Successful !</h2>
+  <p>We are delighted to inform you that we received your payments</p>
+  <a href="#" class="btn-view-orders" data-bind="click:function(){proceed()}">start <span data-bind="text:communicationType()"></span></a>
+</div>
+<!--success ends here-->
+</div>
+<!-- end live-chat -->
+
+
+
+<!--Inbox starts here-->
+<div data-bind="style:{display:showInbox()}" style="width: 100%;max-width: 100%">
+    <oj-button on-click="[[showConsultant]]" style="float: right">Consult Doctor</oj-button><r/>
+ "What medical issues are you facing today?"
+ <oj-text-area id="text-area" value="{{value}}">
+          </oj-text-area><br/>
+"Since When?"
+<oj-text-area id="text-area" value="{{value2}}">
+          </oj-text-area><br/>
+"Are you allergic to any medicines?"
+<oj-text-area id="text-area" value="{{value3}}">
+          </oj-text-area><br/>
+<oj-button data-bind="click:function(){sendmail()}">Send</oj-button>
+</div>
+
+
+<!--chat bot div -->
+<div class="botDiv" data-bind="style:{display:showbot()}">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!--  Include the above in your HEAD tag -->
+        <div class="col-sm-3 col-sm-offset-4 frame">
+            <ul class="botUL"></ul>
+            <div>
+                <div class="msj-rta macro">                        
+                    <div class="text text-r" style="background:whitesmoke !important">
+                        <input class="mytext" placeholder="Type a message"/>
+                    </div> 
+
+                </div>
+                <div style="padding:10px;" data-bind="click:function(event,data){enterPressed(data)}">
+                    <span class="glyphicon glyphicon-share-alt"></span>
+                </div>                
+            </div>
+        </div>  
+        <oj-button data-bind="click:function(){showConsultant()}" style="float: right">Consult Doctor</oj-button><br/>     
+</div>
+<!--chat bot div ends here-->
+
+
+
+
+</div>

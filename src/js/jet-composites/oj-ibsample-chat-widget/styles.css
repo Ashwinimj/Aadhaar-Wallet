@@ -1,0 +1,186 @@
+.oj-ibsample-chat-widget {
+    height:500px; 
+    max-width:420px; 
+    overflow-x:hidden;
+    overflow-y:auto;
+    scroll-behavior: smooth;
+}
+
+.oj-ibsample-chat-widget .inputText {
+    max-width: 100%;
+}
+
+.oj-ibsample-chat-widget .footer {
+    max-width: 100%;
+    margin-top: 10px;
+}
+
+.oj-ibsample-chat-widget .message-container {
+    margin-left:0px;
+    margin-right:0px;
+    width:372px;
+}
+.oj-ibsample-chat-widget .bubble-right-container {
+    margin-top:15px;
+}
+
+.oj-ibsample-chat-widget .bubble-left
+{
+    padding: 5px 10px 5px 10px;
+    margin-top:5px;
+    background: #f1f0f0;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.oj-ibsample-chat-widget .bubble-left-with-actions
+{
+    width: 322px;
+    -webkit-border-radius: 10px 10px 0px 0px;
+    -moz-border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.oj-ibsample-chat-widget .message-content-container {
+    margin-top: 15px;
+    margin-left:15px;
+    margin-right:25px;
+}
+
+.oj-ibsample-chat-widget card.oj-listview {
+    border-width: 0px;
+}
+
+.oj-ibsample-chat-widget .card {
+    margin-top:10px;
+    background: white;
+    border: 1px solid #f1f0f0;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.oj-ibsample-chat-widget .card-title {
+    font-weight:bold;
+}
+.oj-ibsample-chat-widget .card-sub-title {
+    margin-top:2px;
+    color:#999;
+}
+.oj-ibsample-chat-widget .card-url {
+    color:#999;
+    font-size: 12px;
+}
+
+.oj-ibsample-chat-widget .vert-card-image {
+    width:50px;
+}
+
+.oj-ibsample-chat-widget .vert-card-link {
+    margin-top: 10px;
+    color: #0084ff;
+    padding: 5px 10px 5px 10px;
+    background: white;
+    border: 1px solid #0084ff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+.oj-ibsample-chat-widget .bubble-right
+{
+    color: white;
+    padding: 5px 10px 5px 10px;
+    background: #0084ff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.oj-ibsample-chat-widget .actions
+{
+    padding: 0px 0px 0px 0px;
+    width:320px;
+    background: white;
+    border: 1px solid #f1f0f0;
+    -webkit-border-radius: 0px 0px 10px 10px;
+    -moz-border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 10px 10px;
+}
+.oj-ibsample-chat-widget .card-actions
+{
+    width:245px;
+}
+.oj-ibsample-chat-widget .action
+{
+    margin-top:5px;
+    padding-bottom:5px;
+    border-bottom: 1px solid #f1f0f0;
+}
+
+.oj-ibsample-chat-widget .action-last
+{
+    margin-top:5px;
+    padding-bottom:5px;
+    border-bottom: 0px;
+}
+
+.oj-ibsample-chat-widget .action-link, a:visited.action-link
+{
+    color: #0084ff;
+}
+
+.oj-ibsample-chat-widget .global-action-link
+{
+    color: #0084ff;
+    padding: 5px 10px 5px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background: white;
+    border: 1px solid #0084ff;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.oj-ibsample-chat-widget .card-filmstrip-item {
+    box-sizing: border-box;
+    width: 100%;
+    margin-top:10px;
+    background: white;
+    border: 1px solid #f1f0f0;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+
+}
+
+.oj-ibsample-chat-widget .card-stretch-items {
+    height: 100%;
+}
+
+.oj-ibsample-chat-widget .card-stretch-items .oj-filmstrip-item-container {
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    margin: 5px;
+}
+
+.oj-ibsample-chat-widget .waitingForText {
+    width:50px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+/* oj-ibsample-chat-widget .avatar {
+    border-radius: 50%;
+    background-size: 35px 35px;
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+} */
+
+

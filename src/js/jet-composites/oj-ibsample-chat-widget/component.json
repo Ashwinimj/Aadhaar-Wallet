@@ -1,0 +1,25 @@
+{
+  "name" : "oj-ibsample-chat-widget"
+  ,"version" : "2.0.0"
+  ,"jetVersion" : "~4.0.0"
+  ,"displayName" : "Intelligent Bots Chat Widget"
+  ,"description" : "This is a sample intelligent bots chat widget that is packaged as an Oracle JET composite component. You can reuse this CCA in your own mobile or web app to provide a custom bot client that connects to the Oracle Intelligent Bots platform using web sockets."
+  ,"properties": {
+   "channel" : {
+     "description" : "The webhook channel ID"     
+     ,"type": "string"
+   }
+  , "websocketConnectionUrl" : {
+    "description" : "The URL to connect to the websocket server"     
+    ,"type": "string"
+   }
+  , "userId" : {
+     "description" : "The user ID passed to intelligent bots"     
+    ,"type": "string"
+   }
+ }  
+ ,"methods" :{
+     "reset" :{"description":"re-apply bot client settings (connection, userId, channel) and clear message history"
+                 }
+ }    
+}

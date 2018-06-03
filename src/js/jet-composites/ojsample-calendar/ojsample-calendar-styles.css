@@ -1,0 +1,7 @@
+ojsample-calendar:not(.oj-complete){
+  visibility: hidden;
+}
+
+ojsample-calendar{
+
+}

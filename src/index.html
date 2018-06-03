@@ -1,0 +1,246 @@
+<html lang="en-us">
+  <head>
+    <title>Aadhaar Wallet App</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+    <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
+
+    <!-- This is the main css file for the default Alta theme -->
+    <!-- injector:theme -->
+    <link rel="stylesheet" href="css/libs/oj/v4.2.0/alta/oj-alta-min.css" type="text/css"/>
+    <!-- endinjector -->
+    
+    <!-- This contains icon fonts used by the starter template -->
+    <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css"/>
+
+    <!-- This is where you would add any app specific styling -->
+    <link rel="stylesheet" href="css/app.css" type="text/css"/>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+  </head>
+  <body class="oj-web-applayout-body" style="background-color: lightyellow">
+    <!-- Template for rendering navigation items shared between nav bar and nav list -->
+    <script type="text/html" id="navTemplate">
+      <li><a href="#">
+        <span data-bind="css: $data['iconClass']"></span>
+        <!-- ko text: $data['name'] --> <!--/ko-->
+      </a></li>
+    </script>
+      
+      <div align="center" style="padding: 150px 0px 150px 0px;background-color: lightyellow" data-bind="style:{display:ScreenName()=='starting'?'block':'none'}">
+       <h1 style="color: red"><b>Welcome</b> </h1>
+       <h1 style="color: red"><b>To</b> </h1>
+        <img src="css/images/aadhaar-logo.png"/>
+        <h1 style="color: red"><b>Wallet</b></h1>
+      </div>
+
+      <!-- Screen 1  login screen-->
+      <div id="loginScreen" align="center" data-bind="style:{display:ScreenName()=='login' && !isLogin()?'block':'none'}">
+        <h1 id="AppName" style="color: red">
+          <img src="css/images/aadhaar-logo.png" height="64px" width="64px"/><span style="color: red"><b> Aadhaar Wallet</b></span></h1><br/>
+        <div style="border: 1px solid #ccc">
+          <h1 id="AppName">Welcome Back!</h1><br/>
+          <oj-label for="usrname">Aadhaar Number</oj-label>
+          <oj-input-text id="usrname" value="{{usrname}}"></oj-input-text> 
+          <br/>
+          <oj-label for="pwd">Password</oj-label>
+          <oj-input-password id="pwd" value="{{pwd}}"></oj-input-password>
+          <br/>
+          <oj-button data-bind="click:function(event,data){signIn()}">Sign IN</oj-button><br/><br/>
+          <a href="#" data-bind="click:function(event,data){registerNow()}">Not Registered?Register here</a><br/><br/>
+          <!--<a href="#" data-bind="click:function(event,data){resetPassword()}">Forgot Password?</a><br/><br/>-->
+        </div>
+      </div>
+
+
+      <!-- screen2 registration-->
+        <div id="registerNow" data-bind="style:{display:ScreenName()=='registerNow'?'block':'none'}">
+          <h1 align="center">Enter Your Details</h1>
+          Full Name :<tab0>&nbsp;&nbsp;&nbsp;<oj-input-text id="firstname" value="{{newUserDetail().fullname}}"></oj-input-text><br/><br/>
+          Date Of Birth : <tab0>&nbsp;<oj-input-date id="dob" value='{{newUserDetail().dob}}'></oj-input-date><br/><br/>
+          Aadhaar Number :&nbsp;&nbsp; <oj-input-text id="aadhaarno" value="{{newUserDetail().aadhaarno}}" 
+          validators= '[
+              {
+                "type": "regExp", 
+                "options":
+                {
+                  "pattern": "[0-9]{12}", 
+                  "hint": "enter exactly 12 digits",
+                  "messageDetail": "You must enter exactly 12 digits"
+                }
+              }]'></oj-input-text><br/><br/>
+          <!--Gender :<tab0><oj-radioset class="oj-choice-direction-row">
+                  <oj-option id="male" value="M">Male</oj-option>
+                  <oj-option id="female" value="F">Female</oj-option>
+                </oj-radioset><br/>-->
+          Mobile Number:<tab00>&nbsp;&nbsp;<oj-input-text id="mobileNo" value="{{newUserDetail().mobileNo}}" 
+          validators= '[
+              {
+                "type": "regExp", 
+                "options":
+                {
+                  "pattern": "[0-9]{10}", 
+                  "hint": "enter exactly 10 digits",
+                  "messageDetail": "You must enter exactly 10 digits"
+                }
+              }]'></oj-input-text><br/>
+              Email Id:<tab00>&nbsp;&nbsp;<oj-input-text id="email" value="{{newUserDetail().email}}" ></oj-input-text><br/><br/>
+             
+             Are you A Doctor?&nbsp;&nbsp;<oj-input-text id="doctor" value="{{isDoctor}}"></oj-input-text><br/><br/>
+             <!--data-bind="style:{display:doctor()=='yes'?'block':'none'}"-->
+             <div data-bind="style:{display:isDoctor()=='YES' || isDoctor()=='yes' || isDoctor()=='Yes' ?'block':'none'}">
+               License Number : &nbsp;&nbsp;<oj-input-text id="licenseNo" value="{{newUserDetail().licenseNo}}"></oj-input-text><br/><br/>
+               Specialization : <tab00>&nbsp;&nbsp;<oj-select-one id="basicSelect" value="{{newUserDetail().specialization}}" style="width:18em">
+                      <oj-option value="mbbs">MBBS</oj-option>
+                      <oj-option value="bds">BDS</oj-option>
+                      <oj-option value="bhms">BHMS</oj-option>
+                      <oj-option value="bams">BAMS</oj-option>
+                      <oj-option value="bums">BUMS</oj-option>
+                      <oj-option value="orthopaedic">Orthopaedic</oj-option>
+                      <oj-option value="pediatric">Pediatric</oj-option>
+                      <oj-option value="neurologist">Neurologist</oj-option>
+                      <oj-option value="nephorologist">Nephorologist</oj-option>
+                      <oj-option value="oncologist">Oncologist</oj-option>
+                      </oj-select-one>
+             </div>
+             <br/>
+             Set Password :<tab0>&nbsp;<oj-input-password id="insertPwd" value="{{newUserDetail().password}}"></oj-input-password><br/><br/>
+             Confirm Password : <oj-input-password id="confirmPwd" value="{{newUserDetail().confirmPwd}}"></oj-input-password><br/><br/>
+
+             <p id="fieldEmpty" style="color: red" data-bind="style:{display:showError()=='fieldEmpty'?'block':'none'}">*Please fill in all the details</p><br/>
+             <p id="pwdNotMatching" style="color: red" data-bind="style:{display:showError()=='pwdNotMatching'?'block':'none'}">*Password doesn't match.Please Insert Again!</p><br/>
+             <p id="aadhaarRegistered" style="color: red" data-bind="style:{display:showError()=='aadhaarRegistered'?'block':'none'}">*Aadhaar Number Already Registered!</p><br/><br/>
+             <p id="dataNotMatching" style="color: red" data-bind="style:{display:showError()=='dataNotMatching'?'block':'none'}">*Entered Data doesn't match with Aadhaar Data!</p><br/><br/>
+             <oj-dialog style="display:none" id="otpDialog" title="" cancel-behavior='none'>
+            <div slot="body" align="center">
+              OTP: <span data-bind="text:Math.floor(Math.random() * (+9999 - +1000)) + +1000"></span>
+            </div>
+            <div slot="footer">
+              <oj-button id="okButton" data-bind="click:function(event){ otpAccepted()}">  Accept</oj-button>
+                <oj-button id="okButton" data-bind="click:function(event){ otpDeclined()}">  Decline</oj-button>
+            </div>
+          </oj-dialog>
+             <oj-button style="float: right;margin-right: 10px" data-bind="click:function(event){goToLoginPage()}">Cancel</oj-button>
+             <oj-button style="float: right;margin-right: 10px" data-bind="click:function(event){goToBankDetails()}">Next</oj-button><br/><br/>
+        </div>
+
+        <!--Screen 3 bankDetails-->
+
+        <div id="bankDetails" align="center" data-bind="style:{display:ScreenName()=='bankDetails'?'block':'none'}">
+          <h2  style="margin-bottom: 10px">Bank Account Details</h2>
+          <!--ko if:banklist().length==0-->
+            <span> No Bank account added . Please add an account.</span>
+            <!--/ko-->
+          <!--ko foreach : banklist()-->
+          <input type="radio" name="defaultBank" data-bind="value:value" checked style="margin:0px 10px 10px 0px"/><span data-bind="text:value"></span><br/>          
+          <!--/ko-->
+
+          <br/>
+          <div style="border: 1px solid #ccc;margin-top: 5px">
+          <h3 align="center"> Add Account </h3>
+          Bank Name : <oj-input-text id="newBankName" value="{{newBankName}}" ></oj-input-text><br/>
+          Account Number : <oj-input-text id="newAccountNo" value="{{newAccountNo}}" ></oj-input-text><br/>
+          Accountee Name : <oj-input-text id="newAccounteeName" value="{{newAccounteeName}}" ></oj-input-text><br/>
+          IFSC Code :<tab1>&nbsp;<oj-input-text id="newIFSC" value="{{newIFSC}}" ></oj-input-text><br/>
+          Mobile Number :&emsp;<oj-input-text id="newAccountMobile" value="{{newAccountMobile}}" validators= '[
+              {
+                "type": "regExp", 
+                "options":
+                {
+                  "pattern": "[0-9]{10}", 
+                  "hint": "enter exactly 10 digits",
+                  "messageDetail": "You must enter exactly 10 digits"
+                }
+              }]'></oj-input-text><br/>
+             <p id="fieldEmptyInBankDetail" style="color: red" data-bind="style:{display:showError()=='fieldEmptyInBankDetail'?'block':'none'}">*Please fill in all the details</p><br/>              
+             <p id="accountExists" style="color: red" data-bind="style:{display:showError()=='accountExists'?'block':'none'}">*Account Already Exists</p><br/>              
+          <oj-button align="center" data-bind="click:function(event){confirmAccount()}">Confirm</oj-button><br/>          
+          </div>
+          <br/>
+          <div data-bind="style:{display:otpInput()=='otpInput'?'block':'none'}">
+          <oj-label for="insertOTP">Enter 4 digit OTP Sent to your Mobile Number : 9877</oj-label>
+          <oj-input-text id="insertOTP" value="{{insertOTP}}" validators= '[
+              {
+                "type": "regExp", 
+                "options":
+                {
+                  "pattern": "[0-9]{4}", 
+                  "hint": "",
+                  "messageDetail": "You must enter exactly 4 digits"
+                }
+              }]'></oj-input-text>
+          <oj-button align="center" data-bind="click:function(event){confirmOTP()}">Confirm OTP</oj-button><br/>          
+              
+             <p id="otpIncorrect" style="color: red" data-bind="style:{display:showError()=='otpIncorrect'?'block':'none'}">*Incorrect OTP!</p><br/><br/>
+              </oj-input-text><br/>
+          </div><br/>
+          <oj-button style="float: right" data-bind="click:function(event){goToLoginPage()}">Finish</oj-button><br/>                   
+        </div>
+    
+     <div class="oj-offcanvas-outer-wrapper oj-offcanvas-page" data-bind="style:{display:ScreenName()=='HomePage'?'block':'none'}">
+      <div id="navDrawer" role="navigation" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
+        <oj-navigation-list data="[[navDataSource]]"
+                            edge="start"
+                            item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
+                            on-click="[[toggleDrawer]]"
+                            selection="{{router.stateId}}">
+        </oj-navigation-list>
+      </div>
+      <div id="pageContent" data-bind="style:{display:ScreenName()=='HomePage'?'block':'none'}"  class="oj-web-applayout-page">
+       
+        <header role="banner" style="background-color: lightgoldenrodyellow"  class="oj-web-applayout-header">
+          <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+           
+            <div class="oj-flex-bar-start oj-md-hide">
+              <oj-button id="drawerToggleButton" class="oj-button-lg" on-click="[[toggleDrawer]]" chroming="half" display="icons">
+                <span slot="startIcon" class="oj-web-applayout-offcanvas-icon"></span>
+                <span>Application Navigation</span>
+              </oj-button>
+            </div>
+            <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+              <h1>Aadhaar Wallet</h1>
+              <!--<span role="img" class="oj-icon demo-oracle-icon" title="Oracle Logo" alt="Aadhaar Wallet Logo"></span>-->
+              <h1 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name" data-bind="text: appName"></h1>
+            </div>
+            <div class="oj-flex-bar-end">
+              
+              <oj-toolbar>
+                <oj-menu-button id="userMenu" display="[[smScreen() ? 'icons' : 'all']]" chroming="half">
+                  <span data-bind="text: userLogin"></span>
+                  <span slot="endIcon" data-bind="css: smScreen() ? 'oj-icon demo-appheader-avatar' : 'oj-component-icon oj-button-menu-dropdown-icon'"></span>
+                  <oj-menu id="menu1" slot="menu" style="display:none">
+                    <oj-option id="out" value="out">Sign Out</oj-option>
+                  </oj-menu>
+                </oj-menu-button>
+              </oj-toolbar>
+            </div>
+          </div>
+          <div role="navigation" class="oj-web-applayout-max-width oj-web-applayout-navbar">
+            <oj-navigation-list class="oj-sm-only-hide oj-md-condense oj-md-justify-content-flex-end"
+                                data="[[navDataSource]]"
+                                edge="top"
+                                item.renderer="[[oj.KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
+                                selection="{{router.stateId}}">
+            </oj-navigation-list>
+          </div>
+        </header>
+
+        <!--The following is the module config -->
+        <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content" data-bind="ojModule: router.moduleConfig,style:{display:ScreenName()=='HomePage'?'block':'none'}">
+        </div>
+        
+      </div>
+    </div>
+    
+    <script type="text/javascript" src="js/libs/require/require.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+  </body>
+
+</html>
